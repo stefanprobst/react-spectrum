@@ -17,7 +17,7 @@ import {useState} from 'react';
 
 export interface MenuTriggerState extends OverlayTriggerState {
   /** Controls which item will be auto focused when the menu opens. */
-  readonly focusStrategy: FocusStrategy,
+  readonly focusStrategy: FocusStrategy | null,
 
   /** Opens the menu. */
   open(focusStrategy?: FocusStrategy | null): void,
@@ -32,16 +32,16 @@ export interface MenuTriggerState extends OverlayTriggerState {
  */
 export function useMenuTriggerState(props: MenuTriggerProps): MenuTriggerState  {
   let overlayTriggerState = useOverlayTriggerState(props);
-  let [focusStrategy, setFocusStrategy] = useState<FocusStrategy>(null);
+  let [focusStrategy, setFocusStrategy] = useState<FocusStrategy | null>(null);
 
   return {
     focusStrategy,
     ...overlayTriggerState,
-    open(focusStrategy: FocusStrategy = null) {
+    open(focusStrategy = null) {
       setFocusStrategy(focusStrategy);
       overlayTriggerState.open();
     },
-    toggle(focusStrategy: FocusStrategy = null) {
+    toggle(focusStrategy = null) {
       setFocusStrategy(focusStrategy);
       overlayTriggerState.toggle();
     }
