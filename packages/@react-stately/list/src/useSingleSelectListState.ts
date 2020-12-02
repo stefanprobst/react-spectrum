@@ -22,13 +22,13 @@ export interface SingleSelectListProps<T> extends CollectionBase<T>, SingleSelec
 }
 export interface SingleSelectListState<T> extends ListState<T> {
   /** The key for the currently selected item. */
-  readonly selectedKey: Key,
+  readonly selectedKey: Key | null,
 
   /** Sets the selected key. */
   setSelectedKey(key: Key): void,
 
   /** The value of the currently selected item. */
-  readonly selectedItem: Node<T>
+  readonly selectedItem: Node<T> | null
 }
 
 /**
