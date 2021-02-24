@@ -46,6 +46,12 @@ export function useSingleSelectListState<T extends object>(props: SingleSelectLi
     onSelectionChange: (keys: Set<Key>) => {
       let key = keys.values().next().value;
 
+      // When selection is not controlled, allow reset to placeholder
+      // with empty string key.
+      if (key === '' && props.selectedKey === undefined) {
+        key = null;
+      }
+
       // Always fire onSelectionChange, even if the key is the same
       // as the current key (useControlledState does not).
       if (key === selectedKey && props.onSelectionChange) {
