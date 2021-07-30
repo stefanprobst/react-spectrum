@@ -37,7 +37,9 @@ interface AriaComboBoxProps<T> extends ComboBoxProps<T> {
   /** The ref for the optional list box popup trigger button.  */
   buttonRef?: RefObject<HTMLElement>,
   /** An optional keyboard delegate implementation, to override the default. */
-  keyboardDelegate?: KeyboardDelegate
+  keyboardDelegate?: KeyboardDelegate,
+  /** Whether Home and End keys should be handled by the listbox. */
+  shouldHandleHomeEndKeys?: boolean
 }
 
 interface ComboBoxAria<T> {
@@ -65,6 +67,7 @@ export function useComboBox<T>(props: AriaComboBoxProps<T>, state: ComboBoxState
     listBoxRef,
     keyboardDelegate,
     // completionMode = 'suggest',
+    shouldHandleHomeEndKeys,
     isReadOnly,
     isDisabled
   } = props;
@@ -94,6 +97,7 @@ export function useComboBox<T>(props: AriaComboBoxProps<T>, state: ComboBoxState
     keyboardDelegate: delegate,
     disallowTypeAhead: true,
     disallowEmptySelection: true,
+    shouldHandleHomeEndKeys,
     ref: inputRef
   });
 

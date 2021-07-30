@@ -74,6 +74,11 @@ interface SelectableCollectionOptions {
    */
   shouldUseVirtualFocus?: boolean,
   /**
+   * Whether Home and End keys should be handled.
+   * @default true
+   */
+  shouldHandleHomeEndKeys?: boolean,
+  /**
    * Whether navigation through tab key is enabled.
    */
   allowsTabNavigation?: boolean
@@ -99,6 +104,7 @@ export function useSelectableCollection(options: SelectableCollectionOptions): S
     selectOnFocus = false,
     disallowTypeAhead = false,
     shouldUseVirtualFocus,
+    shouldHandleHomeEndKeys = true,
     allowsTabNavigation = false
   } = options;
   let {direction} = useLocale();
@@ -172,7 +178,7 @@ export function useSelectableCollection(options: SelectableCollectionOptions): S
         break;
       }
       case 'Home':
-        if (delegate.getFirstKey) {
+        if (shouldHandleHomeEndKeys && delegate.getFirstKey) {
           e.preventDefault();
           let firstKey = delegate.getFirstKey(manager.focusedKey, isCtrlKeyPressed(e));
           manager.setFocusedKey(firstKey);
@@ -184,7 +190,7 @@ export function useSelectableCollection(options: SelectableCollectionOptions): S
         }
         break;
       case 'End':
-        if (delegate.getLastKey) {
+        if (shouldHandleHomeEndKeys && delegate.getLastKey) {
           e.preventDefault();
           let lastKey = delegate.getLastKey(manager.focusedKey, isCtrlKeyPressed(e));
           manager.setFocusedKey(lastKey);
