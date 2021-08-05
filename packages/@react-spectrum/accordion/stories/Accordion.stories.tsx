@@ -29,7 +29,25 @@ storiesOf('Accordion', module)
   .add('disabledKeys: files, shared, defaultExpandedKeys: files', () => render({
     defaultExpandedKeys: ['files'],
     disabledKeys: ['files', 'shared']
-  }));
+  }))
+  .add('jsx children', () => (
+    <Accordion>
+      <Item key="first" title="First item">
+        <p>
+          This is the first item with <a href="https://example.com"">a link</a>.
+        </p>
+      </Item>
+    </Accordion>
+  ))
+  .add('jsx children with hasChildItems=false', () => (
+    <Accordion>
+      <Item key="first" title="First item" hasChildItems={false}>
+        <p>
+          This is the first item with <a href="https://example.com">a link</a>.
+        </p>
+      </Item>
+    </Accordion>
+  ));
 
 function render(props = {}) {
   return (
